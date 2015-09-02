@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MultitenantTexitTest</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= link_to "Home", 'http://lvh.me:3000/' %> | <%= link_to "Posts", posts_path %> | <%= link_to "Sign out", destroy_user_session_path, :method => "delete" %> | <%= link_to "Sign In", "/users/sign_in" %> |
+<%= link_to "Sign Up", '/users/sign_up' %> | Signed in as: <%= current_user.email if current_user.present? %>
+
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+<%= yield %>
+
+</body>
+</html>
