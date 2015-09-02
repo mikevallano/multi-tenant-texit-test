@@ -23,8 +23,8 @@ class ApplicationController < ActionController::Base
   def scope_current_account
     Account.current_id = current_account.id
     yield
-  # ensure
-  #   Account.current_id = nil
+  ensure
+    Account.current_id = nil
   end
 
 
