@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   after_initialize :set_account
 
+  default_scope { where(account_id: Account.current_id) }
+
   private
 
     def set_account

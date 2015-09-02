@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<%= link_to "Home", 'http://lvh.me:3000/' %> | <%= link_to "Posts", posts_path %> | <%= link_to "Sign out", destroy_user_session_path, :method => "delete" %> | <%= link_to "Sign In", "/users/sign_in" %> |
+<%= link_to "Home", 'http://lvh.me:3000/' %> | <%= link_to "Posts", posts_path(:subdomain => @account.subdomain) if @account.present? %> | <%= link_to "Sign out", destroy_user_session_path, :method => "delete" %> | <%= link_to "Sign In", "/users/sign_in" %> |
 <%= link_to "Sign Up", '/users/sign_up' %> | Signed in as: <%= current_user.email if current_user.present? %>
 
   <p class="notice"><%= notice %></p>

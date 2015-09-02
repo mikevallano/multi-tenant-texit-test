@@ -16,12 +16,16 @@ class ApplicationController < ActionController::Base
     @account = Account.find_by(subdomain: request.subdomain)
   end
 
+  def current_subdomain
+    @subdomain = Account.find_by(subdomain: request.subdomain).subdomain
+  end
+
   def require_account!
     redirect_to root_url if !@account.present?
   end
 
   def scope_current_account
-    Account.current_id = current_account.id
+    Account.current_id = current_account.id if current_account.present?
     yield
   ensure
     Account.current_id = nil
