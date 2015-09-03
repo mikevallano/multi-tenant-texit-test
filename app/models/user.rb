@@ -15,8 +15,27 @@ class User < ActiveRecord::Base
   after_initialize :set_account
   after_save :assign_owner_id
 
+
+  #methods for pundit calls
+  def admin?
+    self.role_ids.include?(1)
+  end
+
+  def account_owner?
+    self.role_ids.include?(2) || self.account.owner_id == self.id
+  end
+
+  def manager?
+    self.role_ids.include?(3)
+  end
+
+  def counselor?
+    self.role_ids.include?(4)
+  end
+
   private
 
+    #create account on user sign_up
     def set_account
       build_account unless account.present?
     end
