@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def user_in_account
     unless request.subdomain == current_user.account.subdomain
-      redirect_to root_path, alert: "You are not authorized to access that subdomain."
+      redirect_to subdomain_root_url, alert: "You are not authorized to access that subdomain."
     end
   end
 
