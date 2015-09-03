@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+
+  default_scope { where(account_id: Account.current_id) }
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -10,12 +11,16 @@ class User < ActiveRecord::Base
 
   after_initialize :set_account
 
-  default_scope { where(account_id: Account.current_id) }
+  after_save :assign_owner_id
 
   private
 
     def set_account
       build_account unless account.present?
+    end
+
+    def assign_owner_id
+      account.owner_id = self.id unless account.owner_id.present?
     end
 
 

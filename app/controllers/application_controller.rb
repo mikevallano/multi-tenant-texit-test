@@ -7,15 +7,15 @@ class ApplicationController < ActionController::Base
 
   around_filter :scope_current_account
 
-  def user_in_account
-    unless request.subdomain == current_user.account.subdomain
-      redirect_to subdomain_root_url, alert: "You are not authorized to access that subdomain."
-    end
-  end
+  # def user_in_account
+  #   unless request.subdomain == current_user.account.subdomain
+  #     redirect_to subdomain_root_url, alert: "You are not authorized to access that subdomain."
+  #   end
+  # end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password,
-      :password_confirmation, account_attributes: [:subdomain])}
+      :password_confirmation, account_attributes: [:subdomain, :owner_id])}
   end
 
   def current_account
