@@ -3,16 +3,26 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <%= f.fields_for :account do |a| %>
-  <div class="field">
-    <%= a.label :subdomain %><br />
-    <%= a.text_field :subdomain, autofocus: true %>
-  </div>
+  <% if @token.present? %>
+    <%= hidden_field_tag :invite_token, @token %>
+  <% end %>
+
+  <% if !@token.present? %>
+    <%= f.fields_for :account do |a| %>
+    <div class="field">
+      <%= a.label :subdomain %><br />
+      <%= a.text_field :subdomain, autofocus: true %>
+    </div>
+    <% end %>
   <% end %>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <% if @token.present? %>
+      <%= f.email_field :email, autofocus: true, :input_html => { :value => resource.email } %>
+    <% else %>
+      <%= f.email_field :email, autofocus: true %>
+    <% end %>
   </div>
 
   <div class="field">
