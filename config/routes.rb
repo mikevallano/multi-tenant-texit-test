@@ -13,6 +13,7 @@ end
 
 Rails.application.routes.draw do
 
+  resources :roles
   devise_for :users, :controllers => {:registrations => "registrations"}
   constraints(SubdomainPresent) do
     root 'posts#index', as: :subdomain_root

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :account
+  has_and_belongs_to_many :roles
 
   accepts_nested_attributes_for :account
 
