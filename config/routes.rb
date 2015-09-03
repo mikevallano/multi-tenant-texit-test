@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   constraints(SubdomainPresent) do
     root 'posts#index', as: :subdomain_root
     resources :posts
+    resources :invites
     # devise_scope :user do
     #   get '/sign_in' => "devise/sessions#new"
     #   match '/sign_in', :to => 'devise/sessions#new', via: [:get, :post]

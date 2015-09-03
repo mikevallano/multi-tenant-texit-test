@@ -7,12 +7,17 @@ class RegistrationsController < Devise::RegistrationsController
     build_resource({})
     set_minimum_password_length
     yield resource if block_given?
+    @token = params[:invite_token] #<-- pulls the value from the url query string
     respond_with self.resource
   end
 
   # POST /resource
   def create
     build_resource(sign_up_params)
+    @token = params[:invite_token]
+    if @token.present?
+     resource.account_id =  Invite.find_by_token(@token).account_id #find and assign the account based on token
+    end
 
     resource.save
     yield resource if block_given?
