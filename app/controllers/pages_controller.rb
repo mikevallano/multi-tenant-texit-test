@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  layout "registration"
+
   def home
   end
 
