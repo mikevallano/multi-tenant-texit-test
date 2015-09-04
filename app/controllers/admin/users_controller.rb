@@ -1,6 +1,7 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :can_manage_users? #restrict access based on role. using pundit with namespaces is a challenge
 
   # GET /users
   # GET /users.json
@@ -71,5 +72,11 @@ class Admin::UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params[:user].permit(:email, :role_ids)
+    end
+
+    def can_manage_users?
+      unless current_user.admin? || current_user.account_owner?
+        redirect_to subdomain_root_url
+      end
     end
 end
