@@ -16,7 +16,7 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    Role:<br><%= f.collection_select(:role_ids, Role.all, :id, :name, { :label => "Role" } ) %>
+    Role:<br><%= f.collection_select(:role_ids, Role.assignable, :id, :name, { :label => "Role" } ) %>
   </div>
   <div class="actions">
     <%= f.submit %>
