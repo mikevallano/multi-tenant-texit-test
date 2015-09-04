@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   belongs_to :account
   has_and_belongs_to_many :roles
-  has_many :invitations, :class_name => "Invite", :foreign_key => 'receiver_id'
+  has_many :received_invites, :class_name => "Invite", :foreign_key => 'receiver_id'
   has_many :sent_invites, :class_name => "Invite", :foreign_key => 'sender_id'
 
   accepts_nested_attributes_for :account
