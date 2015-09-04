@@ -18,19 +18,19 @@ class User < ActiveRecord::Base
 
   #methods for pundit calls
   def admin?
-    self.role_ids.include?(1)
+    self.roles.map(&:name).include?("admin")
   end
 
   def account_owner?
-    self.role_ids.include?(2) || self.account.owner_id == self.id
+    self.roles.map(&:name).include?("account owner") || self.account.owner_id == self.id
   end
 
   def manager?
-    self.role_ids.include?(3)
+    self.roles.map(&:name).include?("manager")
   end
 
   def counselor?
-    self.role_ids.include?(4)
+    self.roles.map(&:name).include?("counselor")
   end
 
   private
