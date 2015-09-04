@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     root 'posts#index', as: :subdomain_root
     resources :posts
     resources :invites
+    namespace :admin do
+      resources :users
+    end
     # devise_scope :user do
     #   get '/sign_in' => "devise/sessions#new"
     #   match '/sign_in', :to => 'devise/sessions#new', via: [:get, :post]
@@ -37,7 +40,7 @@ Rails.application.routes.draw do
     #   post  '/register' => 'devise/registrations#new'
     # end
     root 'pages#home'
-     get 'pages/about'
+    get 'pages/about'
     resources :accounts
   end
 end

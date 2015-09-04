@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+
+Email: <%= @user.email %><br>
+Role: <%= @user.roles.first.name %>
+
+<p>
+<%= link_to 'Edit', edit_admin_user_path(@user) %>

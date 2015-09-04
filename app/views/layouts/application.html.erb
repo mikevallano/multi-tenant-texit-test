@@ -9,7 +9,7 @@
 <body>
 
 <%= link_to "Home", 'http://lvh.me:3000/' %> | <%= link_to "Posts", posts_path(:subdomain => @account.subdomain) if @account.present? %> | <%= link_to "Sign out", destroy_user_session_path, :method => "delete" %> | <%= link_to "Sign In", "/users/sign_in" %> |
-<%= link_to "Sign Up", '/users/sign_up' %> | Signed in as: <%= current_user.email if current_user.present? %> | <%= link_to "Invite a New User", new_invite_path if current_user.present? && current_user.role_ids.include?(2) || current_user.account.owner_id == current_user.id if current_user.present? %>
+<%= link_to "Sign Up", '/users/sign_up' %> | Signed in as: <%= current_user.email if current_user.present? %> | <%= link_to "Invite a New User", new_invite_path if current_user.present? && current_user.role_ids.include?(2) || current_user.account.owner_id == current_user.id if current_user.present? %> | <%= link_to "Manage Users", admin_users_path if current_user.present? && current_user.role_ids.include?(2) || current_user.account.owner_id == current_user.id if current_user.present? %>
 
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
