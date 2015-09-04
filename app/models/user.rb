@@ -41,7 +41,10 @@ class User < ActiveRecord::Base
     end
 
     def assign_owner_id
-      account.owner_id = self.id unless account.owner_id.present?
+      unless account.owner_id.present?
+        account.owner_id = self.id
+        self.role_ids = Role.find_by_name("account owner").id
+      end
     end
 
 

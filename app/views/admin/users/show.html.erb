@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 Email: <%= @user.email %><br>
-Role: <%= @user.roles.first.name %>
+Role: <%= @user.roles.map(&:name).join(', ')%>
 
 <p>
 <%= link_to 'Edit', edit_admin_user_path(@user) %>
