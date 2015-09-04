@@ -10,7 +10,7 @@
   <% if !@token.present? %>
     <%= f.fields_for :account do |a| %>
     <div class="field">
-      <%= a.label :subdomain %><br />
+      <%= a.label :subdomain, "Enter the name of your account (subdomain)" %><br />
       <%= a.text_field :subdomain, autofocus: true %>
     </div>
     <% end %>
