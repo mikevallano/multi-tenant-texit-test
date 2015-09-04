@@ -29,12 +29,11 @@ class InvitesController < ApplicationController
    def create
     @invite = Invite.new(invite_params)
     authorize @invite
-    # @invite.sender_id = current_user.id # set the sender to the current user
-    @invite[:token] = Digest::SHA1.hexdigest([current_user.account_id, Time.now, rand].join)
+    @invite[:token] = @invite.generate_token
      if @invite.save
         InviteMailer.new_user_invite(@invite,
         new_user_registration_url(:invite_token => @invite.token,
-        :subdomain => @account.subdomain)).deliver_now #send the invite data to our mailer to deliver the email
+        :subdomain => @account.subdomain)).deliver_now
         redirect_to subdomain_root_url, notice: 'Invite sent.'
       else
         redirect_to subdomain_root_url, notice: "Error in sending invite."
