@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :account
 
   after_initialize :set_account
-  after_save :assign_owner_id
+  after_create :assign_owner_id
+  after_create :set_invite_receiver_id
 
 
   #methods for pundit calls
@@ -44,6 +45,14 @@ class User < ActiveRecord::Base
       unless account.owner_id.present?
         account.owner_id = self.id
         self.role_ids = Role.find_by_name("account owner").id
+      end
+    end
+
+    def set_invite_receiver_id
+      invite = Invite.find_by_email(self.email)
+      unless invite.receiver_id.present?
+        invite.receiver_id = self.id
+        invite.save
       end
     end
 
