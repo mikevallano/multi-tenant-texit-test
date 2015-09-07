@@ -50,9 +50,11 @@ class User < ActiveRecord::Base
 
     def set_invite_receiver_id
       invite = Invite.find_by_email(self.email)
-      unless invite.receiver_id.present?
-        invite.receiver_id = self.id
-        invite.save
+      if invite.present?
+        unless invite.receiver_id.present?
+          invite.receiver_id = self.id
+          invite.save
+        end
       end
     end
 
